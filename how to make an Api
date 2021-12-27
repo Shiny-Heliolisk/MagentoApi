@@ -1,0 +1,43 @@
+Các bước tạo web Api trong magento:
+Bước 1: Chuẩn bị csdl(bảng + data)
+Bước 2: Tạo Model liên kết với bảng đã tạo ở bước 1
+Bước 3: Tạo file: <module-name>/Api/Data/PikeRepositoryInterFace.php
+
+Trong đây tạo các method mong muốn (bắt buộc phải có docblock)(tham khảo code trong module-cms)
+
+Bước 4: Tạo file: <module-name>/Api/PikeInterFace.php
+
+Trong đây tạo các hàm get set tương ứng với các cột trong bảng đã tạo ở bước 1
+
+Bước 5: Tạo file <module-name>/Model/PikeRepository
+
+Tạo các function theo Interface tương ứng. tham khảo code trong module-cms
+
+Bước 6: Tạo webapi.xml
+
+Trong webapi.xml, tạo các route:
+
+-tag route gồm các thuộc tính: url và method url có dạng: /V1/pike (tốt nhất nên viết là /V1/ten_action) method để nhập vào postman để test api
+- /V1/getById/:entityId trong trường hợp muốn truyền thêm đối số.
+-tag service gồm các thuộc tính: class và method, class sẽ nhập Interface mình muốn sử dụng, method là hàm nằm trong nó
+-tag resources và resource sẽ nhập quyền ACL(anonymous cho tất cả)
+
+Bước 7: tạo file di.xml 
+
+trong di.xml, tạo các preference. 
+Trong preference gồm các thuộc tính: for: nhập vào interface type: nhập vào tên model tương ứng
+chú ý: đường dẫn trong hai thuộc tính trên dùng dấu "\" để phân thư mục
+
+Bước 8: test trên Postman 
+
+Bước 8.1:lấy token
+paste link sau để lấy token: chú ý thay đổi tên project, username và password
+http://localhost/Raww/rest/V1/integration/admin/token?username=pike&password=nghia123
+
+copy token vừa sinh ra
+
+Bước 8.2: tại tab Headers:
+- Key: nhập Authorization
+- Value: nhập Bearer <token>
+
+Bước 8.3: paste link + chọn method rồi click send.

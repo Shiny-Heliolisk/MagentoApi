@@ -1,0 +1,12 @@
+{
+    "pike": {
+        "column": {
+            "entity_id": true,
+            "name": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "PIKE_ENTITY_ID": true
+        }
+    }
+}
